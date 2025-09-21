@@ -1,0 +1,9 @@
+# -*- encoding=utf8 -*-
+__author__ = "Q1cxx"
+from airtest.core.api import *
+
+auto_setup(__file__)
+
+touch(Template(r"tpl_start_button.png", record_pos=(0, 0.3), resolution=(1080, 1920)))
+wait(Template(r"tpl_main_menu.png", record_pos=(0, -0.2), resolution=(1080, 1920)))
+assert_exists(Template(r"tpl_avatar.png", record_pos=(-0.3, 0.1), resolution=(1080, 1920)), "登录成功")
