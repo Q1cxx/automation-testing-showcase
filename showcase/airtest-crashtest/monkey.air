@@ -1,27 +1,42 @@
 # -*- encoding=utf8 -*-
 __author__ = "Q1cxx"
+"""
+8 小时 Monkey 稳定性测试
+----------------------------
+1. 2 秒一次随机点击/滑动
+2. 实时 logcat 捕获崩溃
+3. 发现崩溃立即抛异常
+"""
 import random
 from airtest.core.api import *
 from airtest.core.android.adb import adb
 
-PKG = "com.qcxx.game"  # 被测包
-HOURS = 8
-SAMPLE_INTERVAL = 2  # 2 秒一次事件（调试可改短）
+# === 配置 ===
+PKG = "com.qcxx.game"          # 被测包名
+HOURS = 8                      # 总时长
+EVENT_INTERVAL = 2             # 事件间隔（秒）
+TOTAL_EVENTS = int(HOURS * 3600 / EVENT_INTERVAL)
 
+# === 启动游戏 ===
 auto_setup(__file__)
 start_app(PKG)
-sleep(5)
+sleep(5)   # 等待加载
 
-for _ in range(int(HOURS * 3600 / SAMPLE_INTERVAL)):
+# === 事件循环 ===
+for i in range(TOTAL_EVENTS):
+    # 随机坐标
     x, y = random.randint(100, 900), random.randint(200, 1600)
+    # 80% 点击，20% 滑动
     if random.random() < 0.8:
         touch((x, y))
     else:
         swipe((x, y), (x + random.randint(-300, 300), y + random.randint(-300, 300)))
-    sleep(SAMPLE_INTERVAL)
+    sleep(EVENT_INTERVAL)
+    # 每 100 次检查一次崩溃
+    if i % 100 == 0:
+        crash = adb.shell(f"logcat -d | grep -i 'fatal\\|crash' | grep {PKG}")
+        if crash:
+            raise Exception(f"发现崩溃（第{i}次）:\n{crash}")
 
-crash = adb.shell(f"logcat -d | grep -i 'fatal\\|crash' | grep {PKG}")
-if crash:
-    raise Exception("发现崩溃:\n" + crash)
-else:
-    print("8h 零崩溃，稳定性通过！")
+# === 结束 ===
+print("8h 零崩溃，稳定性通过！")
