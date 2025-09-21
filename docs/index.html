@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>秦宇骏-游戏测试脚本作品集</title>
+  <style>
+    body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;margin:0;padding:0;background:#f2f5fa;color:#333}
+    header{background:#0d1117;color:#fff;padding:40px 20px;text-align:center}
+    header h1{margin:0 0 10px;font-size:32px}
+    header p{margin:0;font-size:18px;opacity:.8}
+    .container{max-width:900px;margin:30px auto;padding:0 20px}
+    .section{background:#fff;border-radius:8px;padding:25px;margin-bottom:25px;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+    h2{margin-top:0;font-size:22px}
+    pre{background:#f6f8fa;border-radius:6px;padding:16px;overflow:auto;font-size:14px}
+    .btn{display:inline-block;margin-top:15px;padding:10px 20px;background:#238636;color:#fff;text-decoration:none;border-radius:6px;font-size:16px}
+    .btn:hover{background:#2ea043}
+    .qr{text-align:center;margin-top:30px}
+    .qr img{width:180px}
+  </style>
+</head>
+<body>
+<header>
+  <h1>游戏测试脚本作品集</h1>
+  <p>扫码即看 | 秦宇骏 | 3 年游戏 QA | 随时到岗</p>
+</header>
+
+<div class="container">
+  <div class="section">
+    <h2>① MMORPG 高并发交易脚本</h2>
+    <pre><code>pytest showcase/mmorpg-trading/test_trading.py
+# 500 并发购买，成功率 ≥99%</code></pre>
+    <a class="btn" href="https://github.com/Q1cxx/automation-testing-showcase/blob/main/showcase/mmorpg-trading/test_trading.py" target="_blank">查看源码</a>
+    <a class="btn" href="https://q1cxx.github.io/automation-testing-showcase/reports/mmorpg-trading.html" target="_blank">在线报告</a>
+  </div>
+
+  <div class="section">
+    <h2>② FPS 枪械平衡矩阵脚本</h2>
+    <pre><code>pytest showcase/fps-gun-balance/gun_matrix.py
+# pairwise 生成 124×200 最小组合</code></pre>
+    <a class="btn" href="https://github.com/Q1cxx/automation-testing-showcase/blob/main/showcase/fps-gun-balance/gun_matrix.py" target="_blank">查看源码</a>
+    <a class="btn" href="https://q1cxx.github.io/automation-testing-showcase/reports/fps-gun-balance.html" target="_blank">在线报告</a>
+  </div>
+
+  <div class="section">
+    <h2>③ 卡牌挂机 8h 内存泄漏脚本</h2>
+    <pre><code>pytest showcase/card-afk-profit/afk_memory.py
+# 30s 采样，峰值 < 1.6 GB</code></pre>
+    <a class="btn" href="https://github.com/Q1cxx/automation-testing-showcase/blob/main/showcase/card-afk-profit/afk_memory.py" target="_blank">查看源码</a>
+    <a class="btn" href="https://q1cxx.github.io/automation-testing-showcase/reports/card-afk-profit.html" target="_blank">在线报告</a>
+  </div>
+
+  <div class="section">
+    <h2>④ Airtest 8h 稳定性 Monkey</h2>
+    <pre><code>airtest run monkey.air --device Android:///
+# 零崩溃</code></pre>
+    <a class="btn" href="https://github.com/Q1cxx/automation-testing-showcase/blob/main/showcase/airtest-crashtest/monkey.air" target="_blank">查看源码</a>
+  </div>
+
+  <div class="section">
+    <h2>一键运行（云端 Binder）</h2>
+    <a class="btn" href="https://mybinder.org/v2/gh/Q1cxx/automation-testing-showcase/HEAD?filepath=showcase%2Frun_all.py" target="_blank">Binder 在线跑全部脚本</a>
+  </div>
+
+  <div class="section">
+    <h2>打包下载</h2>
+    <a class="btn" href="https://raw.githubusercontent.com/Q1cxx/automation-testing-showcase/main/docs/秦宇骏-3年游戏QA-可随时到岗.pdf" download>下载简历 PDF</a>
+    <a class="btn" href="https://github.com/Q1cxx/automation-testing-showcase/releases/download/v1.0/report.zip" download>下载完整报告包</a>
+  </div>
+
+  <div class="section qr">
+    <h2>手机扫码查看</h2>
+    <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://q1cxx.github.io/automation-testing-showcase" alt="二维码">
+    <p>https://q1cxx.github.io/automation-testing-showcase</p>
+  </div>
+</div>
+</body>
+</html>

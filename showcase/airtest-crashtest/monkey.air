@@ -1,0 +1,29 @@
+# -*- encoding=utf8 -*-
+__author__ = "Q1cxx"
+from airtest.core.api import *
+from airtest.core.android.adb import adb
+
+PKG = "com.qcxx.game"   # 被测包名
+HOURS = 8               # 8 小时
+
+auto_setup(__file__)
+
+# 先启动游戏
+start_app(PKG)
+sleep(5)
+
+# 8h 随机点击+滑动
+for _ in range(int(HOURS*3600/2)):   # 2s 一次事件
+    x, y = random.randint(100, 900), random.randint(200, 1600)
+    if random.random() < 0.8:
+        touch((x, y))
+    else:
+        swipe((x, y), (x+random.randint(-300, 300), y+random.randint(-300, 300)))
+    sleep(2)
+
+# 检查崩溃
+crash = adb.shell(f"logcat -d | grep -i 'fatal\|crash' | grep {PKG}")
+if crash:
+    raise Exception("发现崩溃:\n"+crash)
+else:
+    print("8h 无崩溃，稳定性通过！")
