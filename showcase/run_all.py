@@ -1,18 +1,25 @@
+#!/usr/bin/env python3
 """
 一键跑全部脚本 + 聚合报告
 """
-import subprocess, pathlib, shutil
+import subprocess, pathlib, shutil, sys
 
-pathlib.Path("showcase/reports").mkdir(exist_ok=True)
+root = pathlib.Path(__file__).parent
+reports = root / "reports"
+reports.mkdir(exist_ok=True)
 
 jobs = [
-    ("mmorpg-trading", "python -m pytest test_trading.py --html=report.html"),
-    ("fps-gun-balance", "python -m pytest gun_matrix.py --html=report.html"),
-    ("card-afk-profit", "python -m pytest afk_memory.py --html=report.html"),
+    ("mmorpg-trading", "pytest test_trading.py --html=report.html --self-contained-html"),
+    ("fps-gun-balance", "pytest gun_matrix.py --html=report.html --self-contained-html"),
+    ("card-afk-profit", "pytest afk_memory.py --html=report.html --self-contained-html"),
 ]
 
 for folder, cmd in jobs:
-    subprocess.run(cmd, shell=True, cwd=f"showcase/{folder}")
-    shutil.move(f"showcase/{folder}/report.html", f"showcase/reports/{folder}.html")
+    print(f"\n>>> 正在跑 {folder} ...")
+    code = subprocess.run(cmd, shell=True, cwd=root / folder)
+    if code.returncode == 0:
+        shutil.move(root / folder / "report.html", reports / f"{folder}.html")
+    else:
+        print(f"{folder} 运行失败，请检查脚本", file=sys.stderr)
 
-print("✅ 全部完成，报告在 showcase/reports/")
+print("\n✅ 全部完成！报告在 showcase/reports/")
